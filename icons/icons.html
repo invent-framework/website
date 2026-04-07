@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated logo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0a0a0a;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cubes-container {
+      width: 100%;
+      container-type: inline-size;
+      display: grid;
+      gap: 1.5rem;
+      padding: 1rem;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 30rem) {
+      .cubes-container {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      /* Hide last 3 icon cubes in 3-column layout */
+      .cube[data-cube="3"],
+      .cube[data-cube="4"],
+      .cube[data-cube="5"] {
+        display: none;
+      }
+    }
+
+    @media (min-width: 44rem) {
+      .cubes-container {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      /* Show all cubes again in 4+ column layouts */
+      .cube[data-cube="3"],
+      .cube[data-cube="4"],
+      .cube[data-cube="5"] {
+        display: block;
+      }
+    }
+
+    @media (min-width: 66rem) {
+      .cubes-container {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+
+    .scene {
+      width: 100%;
+      aspect-ratio: 1;
+      perspective: 300cqi;
+      container-type: size;
+    }
+
+    .cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: translateZ(-50cqi);
+      transition: transform 1s;
+    }
+
+    .cube__face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .cube__face svg {
+      width: 85%;
+      height: 85%;
+      fill: black;
+    }
+
+    .cube__face--letter {
+      font-size: 100cqi;
+      font-weight: bold;
+      color: white;
+      font-family: 'Fira Sans', sans-serif;
+    }
+
+    .cube__face--front  { transform: rotateY(  0deg) translateZ(50cqi); }
+    .cube__face--right  { transform: rotateY( 90deg) translateZ(50cqi); }
+    .cube__face--back   { transform: rotateY(180deg) translateZ(50cqi); }
+    .cube__face--left   { transform: rotateY(-90deg) translateZ(50cqi); }
+    .cube__face--top    { transform: rotateX( 90deg) translateZ(50cqi); }
+    .cube__face--bottom { transform: rotateX(-90deg) translateZ(50cqi); }
+
+    .cube.show-front  { transform: translateZ(-50cqi) rotateY(   0deg); }
+    .cube.show-right  { transform: translateZ(-50cqi) rotateY( -90deg); }
+    .cube.show-back   { transform: translateZ(-50cqi) rotateY(-180deg); }
+    .cube.show-left   { transform: translateZ(-50cqi) rotateY(  90deg); }
+    .cube.show-top    { transform: translateZ(-50cqi) rotateX( -90deg); }
+    .cube.show-bottom { transform: translateZ(-50cqi) rotateX(  90deg); }
+
+    /* Respect reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      .cube {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cubes-container">
+    <div class="scene">
+      <div class="cube letter-cube" data-cube="letter-0">
+        <div class="cube__face cube__face--front cube__face--letter">I</div>
+        <div class="cube__face cube__face--back cube__face--letter">I</div>
+        <div class="cube__face cube__face--right cube__face--letter">I</div>
+        <div class="cube__face cube__face--left cube__face--letter">I</div>
+        <div class="cube__face cube__face--top cube__face--letter">I</div>
+        <div class="cube__face cube__face--bottom cube__face--letter">I</div>
+      </div>
+    </div>
+
+    <div class="scene">
+      <div class="cube letter-cube" data-cube="letter-1">
+        <div class="cube__face cube__face--front cube__face--letter">N</div>
+        <div class="cube__face cube__face--back cube__face--letter">N</div>
+        <div class="cube__face cube__face--right cube__face--letter">N</div>
+        <div class="cube__face cube__face--left cube__face--letter">N</div>
+        <div class="cube__face cube__face--top cube__face--letter">N</div>
+        <div class="cube__face cube__face--bottom cube__face--letter">N</div>
+      </div>
+    </div>
+
+    <div class="scene">
+      <div class="cube letter-cube" data-cube="letter-2">
+        <div class="cube__face cube__face--front cube__face--letter">V</div>
+        <div class="cube__face cube__face--back cube__face--letter">V</div>
+        <div class="cube__face cube__face--right cube__face--letter">V</div>
+        <div class="cube__face cube__face--left cube__face--letter">V</div>
+        <div class="cube__face cube__face--top cube__face--letter">V</div>
+        <div class="cube__face cube__face--bottom cube__face--letter">V</div>
+      </div>
+    </div>
+
+    <div class="scene">
+      <div class="cube letter-cube" data-cube="letter-3">
+        <div class="cube__face cube__face--front cube__face--letter">E</div>
+        <div class="cube__face cube__face--back cube__face--letter">E</div>
+        <div class="cube__face cube__face--right cube__face--letter">E</div>
+        <div class="cube__face cube__face--left cube__face--letter">E</div>
+        <div class="cube__face cube__face--top cube__face--letter">E</div>
+        <div class="cube__face cube__face--bottom cube__face--letter">E</div>
+      </div>
+    </div>
+
+    <div class="scene">
+      <div class="cube letter-cube" data-cube="letter-4">
+        <div class="cube__face cube__face--front cube__face--letter">N</div>
+        <div class="cube__face cube__face--back cube__face--letter">N</div>
+        <div class="cube__face cube__face--right cube__face--letter">N</div>
+        <div class="cube__face cube__face--left cube__face--letter">N</div>
+        <div class="cube__face cube__face--top cube__face--letter">N</div>
+        <div class="cube__face cube__face--bottom cube__face--letter">N</div>
+      </div>
+    </div>
+
+    <div class="scene">
+      <div class="cube letter-cube" data-cube="letter-5">
+        <div class="cube__face cube__face--front cube__face--letter">T</div>
+        <div class="cube__face cube__face--back cube__face--letter">T</div>
+        <div class="cube__face cube__face--right cube__face--letter">T</div>
+        <div class="cube__face cube__face--left cube__face--letter">T</div>
+        <div class="cube__face cube__face--top cube__face--letter">T</div>
+        <div class="cube__face cube__face--bottom cube__face--letter">T</div>
+      </div>
+    </div>
+
+    <!-- Icon cubes -->
+    <div class="scene">
+      <div class="cube" data-cube="0">
+        <div class="cube__face cube__face--front"><svg viewBox="0 0 1200 1200"><use href="#noun-rocket-launch-4791139"></use></svg></div>
+        <div class="cube__face cube__face--back"><svg viewBox="0 0 1200 1200"><use href="#noun-bicycle-4051887"></use></svg></div>
+        <div class="cube__face cube__face--right"><svg viewBox="0 0 1200 1200"><use href="#noun-dolphin-1257562"></use></svg></div>
+        <div class="cube__face cube__face--left"><svg viewBox="0 0 1200 1200"><use href="#noun-flower-977475"></use></svg></div>
+        <div class="cube__face cube__face--top"><svg viewBox="0 0 1200 1200"><use href="#noun-superhero-261718"></use></svg></div>
+        <div class="cube__face cube__face--bottom"><svg viewBox="0 0 1200 1200"><use href="#noun-pegasus-4791128"></use></svg></div>
+      </div>
+    </div>
+
+    <div class="scene">
+      <div class="cube" data-cube="1">
+        <div class="cube__face cube__face--front"><svg viewBox="0 0 1200 1200"><use href="#noun-seedling-3462529"></use></svg></div>
+        <div class="cube__face cube__face--back"><svg viewBox="0 0 1200 1200"><use href="#noun-graduate-79125"></use></svg></div>
+        <div class="cube__face cube__face--right"><svg viewBox="0 0 1200 1200"><use href="#noun-flying-2348999"></use></svg></div>
+        <div class="cube__face cube__face--left"><svg viewBox="0 0 1200 1200"><use href="#noun-donut-4616888"></use></svg></div>
+        <div class="cube__face cube__face--top"><svg viewBox="0 0 1200 1200"><use href="#noun-unicorn-5805528"></use></svg></div>
+        <div class="cube__face cube__face--bottom"><svg viewBox="0 0 1200 1200"><use href="#noun-winner-4643502"></use></svg></div>
+      </div>
+    </div>
+
+    <div class="scene">
+      <div class="cube" data-cube="2">
+        <div class="cube__face cube__face--front"><svg viewBox="0 0 1200 1200"><use href="#noun-key-to-happiness-578306"></use></svg></div>
+        <div class="cube__face cube__face--back"><svg viewBox="0 0 1200 1200"><use href="#noun-thumbs-up-1072003"></use></svg></div>
+        <div class="cube__face cube__face--right"><svg viewBox="0 0 1200 1200"><use href="#noun-lightness-570915"></use></svg></div>
+        <div class="cube__face cube__face--left"><svg viewBox="0 0 1200 1200"><use href="#noun-fireworks-1189555"></use></svg></div>
+        <div class="cube__face cube__face--top"><svg viewBox="0 0 1200 1200"><use href="#noun-hoverboard-232283"></use></svg></div>
+        <div class="cube__face cube__face--bottom"><svg viewBox="0 0 1200 1200"><use href="#noun-telescope-2750510"></use></svg></div>
+      </div>
+    </div>
+
+    <div class="scene">
+      <div class="cube" data-cube="3">
+        <div class="cube__face cube__face--front"><svg viewBox="0 0 1200 1200"><use href="#noun-rocket-4051960"></use></svg></div>
+        <div class="cube__face cube__face--back"><svg viewBox="0 0 1200 1200"><use href="#noun-world-597971"></use></svg></div>
+        <div class="cube__face cube__face--right"><svg viewBox="0 0 1200 1200"><use href="#noun-unicycle-1668915"></use></svg></div>
+        <div class="cube__face cube__face--left"><svg viewBox="0 0 1200 1200"><use href="#noun-books-8220134"></use></svg></div>
+        <div class="cube__face cube__face--top"><svg viewBox="0 0 1200 1200"><use href="#noun-dj-1136046"></use></svg></div>
+        <div class="cube__face cube__face--bottom"><svg viewBox="0 0 1200 1200"><use href="#noun-pretzel-5050490"></use></svg></div>
+      </div>
+    </div>
+
+    <div class="scene">
+      <div class="cube" data-cube="4">
+        <div class="cube__face cube__face--front"><svg viewBox="0 0 1200 1200"><use href="#noun-trumpet-player-6840941"></use></svg></div>
+        <div class="cube__face cube__face--back"><svg viewBox="0 0 1200 1200"><use href="#noun-ufo-6085488"></use></svg></div>
+        <div class="cube__face cube__face--right"><svg viewBox="0 0 1200 1200"><use href="#noun-tools-282451"></use></svg></div>
+        <div class="cube__face cube__face--left"><svg viewBox="0 0 1200 1200"><use href="#noun-bridge-3462536"></use></svg></div>
+        <div class="cube__face cube__face--top"><svg viewBox="0 0 1200 1200"><use href="#noun-electric-scooter-1727840"></use></svg></div>
+        <div class="cube__face cube__face--bottom"><svg viewBox="0 0 1200 1200"><use href="#noun-ev-charger-4445364"></use></svg></div>
+      </div>
+    </div>
+
+    <div class="scene">
+      <div class="cube" data-cube="5">
+        <div class="cube__face cube__face--front"><svg viewBox="0 0 1200 1200"><use href="#noun-loudspeaker-7955007"></use></svg></div>
+        <div class="cube__face cube__face--back"><svg viewBox="0 0 1200 1200"><use href="#noun-mail-truck-4596381"></use></svg></div>
+        <div class="cube__face cube__face--right"><svg viewBox="0 0 1200 1200"><use href="#noun-awareness-1176474"></use></svg></div>
+        <div class="cube__face cube__face--left"><svg viewBox="0 0 1200 1200"><use href="#noun-bicycle-repair-4260811"></use></svg></div>
+        <div class="cube__face cube__face--top"><svg viewBox="0 0 1200 1200"><use href="#noun-bomb-disposal-wheelbarrow-3462589"></use></svg></div>
+        <div class="cube__face cube__face--bottom"><svg viewBox="0 0 1200 1200"><use href="#noun-explosion-1189559"></use></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const iconIds = [
+      'noun-awareness-1176474', 'noun-bicycle-4051887', 'noun-bicycle-repair-4260811',
+      'noun-bomb-disposal-wheelbarrow-3462589', 'noun-books-8220134',
+      'noun-breaking-the-glass-ceiling-759230', 'noun-bridge-3462536',
+      'noun-computer-user-3462523', 'noun-dating-app-7955011', 'noun-dj-1136046',
+      'noun-dolphin-1257562', 'noun-donut-4616888', 'noun-drummer-411935',
+      'noun-electric-scooter-1727840', 'noun-ev-charger-4445364',
+      'noun-explosion-1189559', 'noun-fireworks-1189555', 'noun-flag-3462683',
+      'noun-flower-977475', 'noun-flying-2348999', 'noun-garden-fork-4260809',
+      'noun-graduate-79125', 'noun-hiker-3462610', 'noun-hoverboard-232283',
+      'noun-human-cannonball-2087832', 'noun-jumping-hurdle-615614',
+      'noun-jumping-rope-7389894', 'noun-key-to-happiness-578306',
+      'noun-lever-1694207', 'noun-liberating-1781685', 'noun-lightness-570915',
+      'noun-location-pin-3462564', 'noun-loudspeaker-7955007',
+      'noun-mail-truck-4596381', 'noun-measuring-1976046',
+      'noun-navigation-app-7871845', 'noun-onewheel-4260841',
+      'noun-pegasus-4791128', 'noun-power-2843194', 'noun-presentation-213773',
+      'noun-pretzel-5050490', 'noun-remote-control-68497', 'noun-reminder-699138',
+      'noun-rocket-4051960', 'noun-rocket-launch-4791139', 'noun-seedling-3462529',
+      'noun-sisyphus-5805532', 'noun-solar-powered-trailer-4917163',
+      'noun-solar-roof-4791107', 'noun-superhero-261718', 'noun-switch-power-872831',
+      'noun-telescope-2750510', 'noun-thumbs-up-1072003', 'noun-tools-282451',
+      'noun-trumpet-player-6840941', 'noun-ufo-6085488', 'noun-unicorn-5805528',
+      'noun-unicycle-1668915', 'noun-unsustainable-1781686',
+      'noun-wheelchair-aide-190311', 'noun-winner-4643502',
+      'noun-work-from-home-4546383', 'noun-worker-4051904',
+      'noun-world-597971', 'noun-zoom-4051925'
+    ];
+
+    const colors = [
+      '#FFD700', // Bright yellow
+      '#C9B037', // Mustard/olive yellow
+      '#FFA500', // Golden orange
+      '#FF8C00', // Bright orange
+      '#FF5722', // Orange-red
+      '#9CCC65', // Lime green
+      '#66BB6A', // Bright green
+      '#4DD0E1', // Turquoise/cyan
+      '#42A5F5', // Bright blue
+      '#1976D2', // Royal blue
+      '#283593', // Navy blue
+      '#BA68C8', // Light purple
+      '#EC407A', // Magenta pink
+      '#D81B60'  // Dark pink
+    ];
+    const faces = ['front', 'right', 'back', 'left', 'top', 'bottom'];
+    const cubes = [];
+
+    function pickRandom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function shuffle(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function assignCubeColors(cubeEl) {
+      const shuffledColors = shuffle(colors);
+      faces.forEach((face, i) => {
+        const faceEl = cubeEl.querySelector(`.cube__face--${face}`);
+        if (faceEl) {
+          faceEl.style.backgroundColor = shuffledColors[i];
+        }
+      });
+    }
+
+    function rotateCube(cubeEl, currentFace, isLetterCube) {
+      const newFace = pickRandom(faces.filter(f => f !== currentFace));
+      if (!isLetterCube) {
+        const faceEl = cubeEl.querySelector(`.cube__face--${newFace}`);
+        const newIcon = pickRandom(iconIds);
+        faceEl.querySelector('use').setAttribute('href', `#${newIcon}`);
+      }
+      const baseClass = isLetterCube ? 'cube letter-cube' : 'cube';
+      cubeEl.className = `${baseClass} show-${newFace}`;
+      return newFace;
+    }
+
+    fetch('icons-sprite.svg')
+      .then(r => r.text())
+      .then(svg => {
+        const div = document.createElement('div');
+        div.innerHTML = svg;
+        document.body.insertBefore(div.firstElementChild, document.body.firstChild);
+        const letterCubes = [];
+        const iconCubes = [];
+
+        document.querySelectorAll('.cube').forEach((cubeEl) => {
+          assignCubeColors(cubeEl);
+          const randomFace = pickRandom(faces);
+          const isLetterCube = cubeEl.classList.contains('letter-cube');
+          const baseClass = isLetterCube ? 'cube letter-cube' : 'cube';
+          cubeEl.className = `${baseClass} show-${randomFace}`;
+          const cubeData = { el: cubeEl, currentFace: randomFace, isLetterCube };
+          if (isLetterCube) {
+            letterCubes.push(cubeData);
+          } else {
+            iconCubes.push(cubeData);
+          }
+        });
+
+        // Check for reduced motion preference
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (!prefersReducedMotion) {
+          function isVisible(cubeData) {
+            return cubeData.el.offsetParent !== null;
+          }
+
+          function getColumnIndex(cubeData) {
+            const rect = cubeData.el.parentElement.getBoundingClientRect();
+            return Math.round(rect.left);
+          }
+
+          function pickDifferentColumns() {
+            // Filter to only visible cubes
+            const visibleLetters = letterCubes.filter(isVisible);
+            const visibleIcons = iconCubes.filter(isVisible);
+
+            if (visibleLetters.length === 0 || visibleIcons.length === 0) {
+              return null;
+            }
+
+            // Pick random letter cube
+            const letterCube = pickRandom(visibleLetters);
+            const letterCol = getColumnIndex(letterCube);
+
+            // Find icon cubes in different columns
+            const differentColumnIcons = visibleIcons.filter(ic => {
+              return Math.abs(getColumnIndex(ic) - letterCol) > 10; // 10px threshold
+            });
+
+            // If all icons are in same column as letter, just pick any icon
+            const iconCube = differentColumnIcons.length > 0
+              ? pickRandom(differentColumnIcons)
+              : pickRandom(visibleIcons);
+
+            return [letterCube, iconCube];
+          }
+
+          setInterval(() => {
+            const result = pickDifferentColumns();
+            if (!result) return;
+
+            const [letterCube, iconCube] = result;
+
+            letterCube.currentFace = rotateCube(
+              letterCube.el,
+              letterCube.currentFace,
+              letterCube.isLetterCube
+            );
+
+            iconCube.currentFace = rotateCube(
+              iconCube.el,
+              iconCube.currentFace,
+              iconCube.isLetterCube
+            );
+          }, 1500);
+        }
+      });
+  </script>
+</body>
+</html>
