@@ -663,17 +663,11 @@
     const animationDuration = 1000; // 1 second
 
     function rotateCubeOnHover(cube) {
-      const currentClasses = cube.className;
-      const showMatch = currentClasses.match(/show-(\w+)/);
-      if (showMatch) {
-        const currentFace = showMatch[1];
-        const faces = ['front', 'right', 'back', 'left', 'top', 'bottom'];
-        const availableFaces = faces.filter(f => f !== currentFace);
-        const randomFace = availableFaces[Math.floor(Math.random() * availableFaces.length)];
-
-        const baseClass = cube.classList.contains('letter-cube') ? 'cube letter-cube' : 'cube';
-        cube.className = `${baseClass} show-${randomFace}`;
-      }
+	  const showMatch = cube.className.match(/show-(\w+)/);
+	  if (showMatch) {
+	    const isLetterCube = cube.classList.contains('letter-cube');
+	    rotateCube(cube, showMatch[1], isLetterCube);
+	  }
     }
 
     function processCubeQueue(cube) {
